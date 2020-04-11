@@ -6,8 +6,17 @@
  */
 
 #include <stdio.h>
+#include <zlib.h>
 
 int main() {
+  printf("hello, world!\n");
+  z_stream strm;
+  /* allocate deflate state */
+  int ret;
+  strm.zalloc = Z_NULL;
+  strm.zfree = Z_NULL;
+  strm.opaque = Z_NULL;
+  ret = deflateInit(&strm, 1);
   printf("hello, world!\n");
   return 0;
 }
