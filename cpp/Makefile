@@ -9,12 +9,11 @@ wasm: src/main.cpp src/converter.cpp
 	-s USE_BOOST_HEADERS=1 \
 	-s USE_ZLIB=1 \
 	-s USE_LIBPNG=1 \
-	-I include/jpeg-6b  \
 	-I include/ \
 	-I /usr/include/x86_64-linux-gnu \
 	-ljpeg -L include/jpeg-9d/.libs/ -I include/jpeg-9d/ \
 	-lz -lpng \
-	 -o build_wasm/converter.html
+	 -o build_wasm/converter.html --preload-file test.jpg
 	
 
 clean:
