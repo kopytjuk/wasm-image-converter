@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 
-#include <boost/filesystem.hpp>
 #include <boost/gil/image.hpp>
 #include <boost/gil/typedefs.hpp>
 #include <boost/gil/io/io.hpp>
@@ -28,25 +27,19 @@ ImageType resolveImageType(const string ext){
   }
 }
 
+string getExtension(string fn){
+  return fn.substr(fn.find_last_of("."));
+}
+
 void convert_image(string inp, string out) {
 
   using namespace boost::gil;
-  using namespace boost::filesystem;
   
   string input_filename(inp);
   string output_filename(out);
 
-  cout << "Input: " << inp << endl;
-  cout << "Output: " << out << endl;
-
-  path inp_filepath(input_filename);
-  path out_filepath(output_filename);
-
-  const string inp_ext = inp_filepath.extension().string();
-  const string out_ext = out_filepath.extension().string();
-
-  cout << "Input Extension: " << inp_ext << endl;
-  cout << "Output Extension: " << out_ext << endl;
+  string inp_ext = getExtension(input_filename);
+  string out_ext = getExtension(output_filename);
 
   ImageType inImageType = resolveImageType(inp_ext);
   ImageType outImageType = resolveImageType(out_ext);
