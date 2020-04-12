@@ -6,5 +6,6 @@
 using namespace std;
 
 void convert_image(string inp, string out);
+char * convert_image(char * data, ImageType inp, ImageType out);
 
 #endif
