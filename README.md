@@ -1,6 +1,6 @@
 # Web assembly 101
 
-[LINK](website/index.html)
+[LINK](https://kopytjuk.github.io/wasm-image-converter/website/index.html)
 
 This repo contains a simple image converter using WASM technology and C++ code.
 
