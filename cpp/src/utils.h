@@ -7,9 +7,10 @@
 
 namespace utils 
 { 
-    void read_file_to_char_array(std::string fn, char **arr, int &size);
-    void write_char_array_to_file(const std::string fn, char **arr, int &size);
+    void read_file_to_char_array(std::string fn, char *arr, int size);
+    void write_char_array_to_file(const std::string fn, char *arr, int size);
     void print_first_bytes(char *arr, int size);
     std::string getExtension(std::string fn);
+    int filesize(std::string fn);
 }
 #endif

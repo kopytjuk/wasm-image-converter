@@ -4,7 +4,7 @@ build: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
 	-lboost_filesystem -lboost_system -ljpeg -lpng
 run: build
 	./build/converter ./test.jpg ./test.png
-wasm: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
+wasm_main: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
 	emcc --std=c++11 src/main.cpp src/converter.cpp src/utils.cpp \
 	-s USE_BOOST_HEADERS=1 \
 	-s USE_ZLIB=1 \
@@ -14,7 +14,16 @@ wasm: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
 	-ljpeg -L include/jpeg-9d/.libs/ -I include/jpeg-9d/ \
 	-lz -lpng \
 	 -o build_wasm/index.html --preload-file test.jpg
-	
+wasm_page: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
+	emcc --std=c++11 src/interface.cpp src/converter.cpp src/utils.cpp \
+	-s USE_BOOST_HEADERS=1 \
+	-s USE_ZLIB=1 \
+	-s USE_LIBPNG=1 \
+	-I include/ \
+	-I /usr/include/x86_64-linux-gnu \
+	-ljpeg -L include/jpeg-9d/.libs/ -I include/jpeg-9d/ \
+	-lz -lpng \
+	 -o ../website/js/wasmconverter.js -s EXPORTED_FUNCTIONS='["_convert_image", "_int_sqrt"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
 
 clean:
 	rm ./test.png
