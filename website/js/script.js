@@ -16,7 +16,8 @@ function _freeArray(heapBytes){
 
 function WASM_CONVERT_IMAGE(data){
     var heapBytes = _arrayToHeap(data);
-    var ret = wasm_convert_image(heapBytes.byteOffset, data.length, 0, 1);
+    //var ret = wasm_convert_image(heapBytes.byteOffset, data.length, 0, 1);
+    ret = Module.convertImage(data, data.length, 0, 1)
     _freeArray(heapBytes);
     return ret;
 }
@@ -39,14 +40,17 @@ function convert(){
             console.log(data);
 
             ret = WASM_CONVERT_IMAGE(data)
-            console.log(ret)
+
+            var blob = new Blob([ret], {type: "image/png"});
+            saveAs(blob, "test.png");
+
+            console.log(ret);
 
         }).catch(function(err) {
             console.log('Error: ',err);
         });
 
-        var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "hello world.txt");  
+        
     }
 }
 
