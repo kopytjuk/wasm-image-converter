@@ -79,5 +79,5 @@
         "variant": "cpp",
         "*.ipp": "cpp"
     },
-    "C_Cpp.default.includePath": ["/usr/local/boost_1_72_0/", "/usr/local/include"],
+    "C_Cpp.default.includePath": ["/usr/local/boost_1_72_0/", "/usr/local/include", "~/emsdk/upstream/emscripten/system/include"],
 }
