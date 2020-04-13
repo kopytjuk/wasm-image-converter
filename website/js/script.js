@@ -22,6 +22,21 @@ function WASM_CONVERT_IMAGE(data){
     return ret;
 }
 
+// adapted from https://stackoverflow.com/a/45831280
+function download(blob, filename) {
+    var element = document.createElement('a');
+    url = URL.createObjectURL(blob)
+    element.setAttribute('href', url);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
 function convert(){
     console.log("Hello World!");
     selectedFile = document.getElementById('imageInputFile').files[0];
@@ -42,7 +57,7 @@ function convert(){
             ret = WASM_CONVERT_IMAGE(data)
 
             var blob = new Blob([ret], {type: "image/png"});
-            saveAs(blob, "test.png");
+            download(blob, "test.png");
 
             console.log(ret);
 
