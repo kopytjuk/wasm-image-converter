@@ -1,7 +1,7 @@
 
 # Web assembly image converter
 
-Website link: [TRY IT OUT](https://kopytjuk.github.io/wasm-image-converter/website/index.html)
+[CLICK TO USE!](https://kopytjuk.github.io/wasm-image-converter/website/index.html)
 
 ![example](example.gif)
 
@@ -26,7 +26,7 @@ There are various image converters on the net which can be implemented one of th
 - send the files to the server, where the conversion logic is implemented
 - JS client-side conversion via `canvas` drawing and export functionality, see [Centipede5/imageconverter](https://github.com/Centipede5/imageconverter).
 
-However this implementation serves as a technology test for a certain task.
+However this implementation serves as a technology test for a particular task.
 
 ## How to build
 
