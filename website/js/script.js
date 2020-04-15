@@ -1,24 +1,8 @@
-// define functions from WASM
-wasm_int_sqrt = Module.cwrap('int_sqrt', 'number', ['number'])
-wasm_convert_image = Module.cwrap('convert_image', 'number', ['number', 'number', 'number', 'number'])
-
-function _arrayToHeap(typedArray){
-    var numBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
-    var ptr = Module._malloc(numBytes);
-    var heapBytes = new Uint8Array(Module.HEAPU8.buffer, ptr, numBytes);
-    heapBytes.set(typedArray);
-    return heapBytes;
-}
-
-function _freeArray(heapBytes){
-    Module._free(heapBytes.byteOffset);
-}
-
-function WASM_CONVERT_IMAGE(data){
-    var heapBytes = _arrayToHeap(data);
-    //var ret = wasm_convert_image(heapBytes.byteOffset, data.length, 0, 1);
-    ret = Module.convertImage(data, data.length, 0, 1)
-    _freeArray(heapBytes);
+// WASM call
+function WASM_CONVERT_IMAGE(data, informat, outformat) {
+    // data: Uint8Array
+    // informat/outformat: 0:JPEG, 1:PNG
+    ret = Module.convertImage(data, data.length, informat, outformat);
     return ret;
 }
 
@@ -37,50 +21,77 @@ function download(blob, filename) {
     document.body.removeChild(element);
 }
 
-function convert(){
-    console.log("Hello World!");
-    selectedFile = document.getElementById('imageInputFile').files[0];
-    
-    if(selectedFile === undefined){
+function convert() {
+
+    console.log("Convert button pressed!");
+
+    convertButtonElement = document.getElementById('convertButton');
+
+    var selectedFile = document.getElementById('imageInputFile').files[0];
+
+    inputFileExtension = file_extension(selectedFile.name);
+    inputImageFormatEnum = imagetype_enum_from_filename(selectedFile.name);
+
+    var outFiletypeElement = document.getElementById('inlineFormCustomSelectPref');
+    var outputImageFormatEnum = parseInt(outFiletypeElement.options[outFiletypeElement.selectedIndex].value);
+    var outputFileExtension = outFiletypeElement.options[outFiletypeElement.selectedIndex].text.toLowerCase();
+
+    console.log("Output image format: " + outputFileExtension);
+
+    if (selectedFile === undefined) {
         alert("Please select your file first!");
-    }else{
-        console.log(selectedFile)
+        return;
+    } else {
+
+        convertButtonElement.innerHTML = 'Converting...';
+
+        console.log("Selected file:");
+        console.log(selectedFile);
 
         fileData = new Blob([selectedFile]);
+
         // Pass getBuffer to promise.
         var promise = new Promise(getBuffer);
+
         // Wait for promise to be resolved, or log error.
-        promise.then(function(data) {
+        promise.then(function (bytesArr) {
+
             // Here you can pass the bytes to another function.
-            console.log(data);
 
-            ret = WASM_CONVERT_IMAGE(data)
+            console.log("Running WASM logic (" + inputFileExtension + " -> " + outputFileExtension + ")");
+            retBytes = WASM_CONVERT_IMAGE(bytesArr, inputImageFormatEnum, outputImageFormatEnum);
+            console.log("Done!");
 
-            var blob = new Blob([ret], {type: "image/png"});
-            download(blob, "test.png");
+            output_filename = file_basename(selectedFile.name) + "." + outputFileExtension;
 
-            console.log(ret);
+            var blob = new Blob([retBytes], { type: "image/" + outputFileExtension });
 
-        }).catch(function(err) {
-            console.log('Error: ',err);
+            console.log("SaveAs dialog to the user.");
+            download(blob, output_filename);
+
+            convertButtonElement.innerHTML = "Convert";
+
+        }).catch(function (err) {
+            console.log(err);
+            alert(":( Error occured, please reload and try again.");
+            convertButtonElement.innerHTML = "Convert";
         });
-
-        
     }
 }
 
+// returns a byte array of file contents
 function getBuffer(resolve) {
     var reader = new FileReader();
     reader.readAsArrayBuffer(fileData);
-    reader.onload = function() {
-      var arrayBuffer = reader.result
-      var bytes = new Uint8Array(arrayBuffer);
-      resolve(bytes);
+    reader.onload = function () {
+        var arrayBuffer = reader.result
+        var bytes = new Uint8Array(arrayBuffer);
+        resolve(bytes);
     }
-  }
+}
 
-function updateInput(){
-    console.log("I was called!");
+// sets the input file field to selected file name
+function updateInputField() {
     inputElem = document.getElementById('imageInputFile');
     selectedFile = inputElem.files[0]
 
