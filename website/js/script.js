@@ -66,7 +66,7 @@ function convert() {
 
             var blob = new Blob([retBytes], { type: "image/" + outputFileExtension });
 
-            console.log("SaveAs dialog to the user.");
+            console.log("Showing SaveAs dialog to the user...");
             download(blob, output_filename);
 
             convertButtonElement.innerHTML = "Convert";
@@ -76,6 +76,8 @@ function convert() {
             alert(":( Error occured, please reload and try again.");
             convertButtonElement.innerHTML = "Convert";
         });
+
+        console.log("Done!")
     }
 }
 

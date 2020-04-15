@@ -24,7 +24,7 @@ wasm_page: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/util
 	-I /usr/include/x86_64-linux-gnu \
 	-ljpeg -L include/jpeg-9d/.libs/ -I include/jpeg-9d/ \
 	-lz -lpng \
-	 -o ../website/js/wasmconverter.js -s EXPORTED_FUNCTIONS='["_int_sqrt"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
+	 -o ../website/js/wasmconverter.js -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
 
 clean:
 	rm ./test.png

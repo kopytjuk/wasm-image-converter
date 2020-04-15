@@ -15,6 +15,7 @@
 using namespace boost::gil;
 using namespace std;
 
+
 ImageType resolveImageType(const string ext){
   if (ext == ".jpg" | ext==".jpeg"){
     return JpegImage;
@@ -25,56 +26,27 @@ ImageType resolveImageType(const string ext){
   }
 }
 
-void convert_image(char** inp, int& insize, ImageType intype, char** outp, int& outsize, ImageType outtype){
+void convert_image(char** inp, int& insize, ImageType intype, char** outp, 
+  int& outsize, ImageType outtype){
+
+  cout << "Decoding image..." << endl;
+
+  cout << "First 10 bytes: ";
+  utils::print_first_bytes(*inp, 10);
 
   rgb8_image_t imageData;
 
-  char_to_image(inp, insize, imageData, intype);
-  cout << "Image read" << endl;
-  image_to_arr(imageData, outtype, outp, outsize);
+  char_array_to_image(inp, insize, imageData, intype);
 
-}
-
-void convert_image(string inp, string out) {
+  cout << "Image decoded! Encoding..." << endl;
   
-  string input_filename(inp);
-  string output_filename(out);
+  image_to_char_array(imageData, outtype, outp, outsize);
 
-  string inp_ext = utils::getExtension(input_filename);
-  string out_ext = utils::getExtension(output_filename);
+  cout << "Image encoded to desired format!" << endl;
 
-  ImageType inImageType = resolveImageType(inp_ext);
-  ImageType outImageType = resolveImageType(out_ext);
-
-  rgb8_image_t imageData;
-
-  switch (inImageType) {
-  case JpegImage:
-    read_image( input_filename, imageData, jpeg_tag() );
-    break;
-  case PngImage:
-    read_image( input_filename, imageData, png_tag() );
-    break;
-  default:
-    cout << "Cannot convert input image type! Exiting." << endl;
-    break;
-  }
-
-  switch (outImageType) {
-  case JpegImage:
-    write_view(output_filename, view(imageData), jpeg_tag() );
-    break;
-  case PngImage:
-    write_view( output_filename, view(imageData), png_tag() );
-    break;
-  default:
-    cout << "Cannot write to output image type! Exiting." << endl;
-    break;
-  }
 }
 
-
-void char_to_image(char **arr, int arr_size, rgb8_image_t &img, ImageType type){
+void char_array_to_image(char **arr, int arr_size, rgb8_image_t &img, ImageType type) {
   
   stringstream arr_stream(ios_base::in | ios_base::out | ios_base::binary);
   arr_stream.write(*arr, arr_size);
@@ -93,11 +65,9 @@ void char_to_image(char **arr, int arr_size, rgb8_image_t &img, ImageType type){
     }
 }
 
-void image_to_arr(rgb8_image_t &img, ImageType type, char **arr, int &size){
+void image_to_char_array(rgb8_image_t &img, ImageType type, char **arr, int &size){
 
   stringstream arr_stream(ios_base::in | ios_base::out | ios_base::binary);
-
-  utils::print_first_bytes(*arr, 10);
 
   switch (type) {
     case JpegImage:
@@ -115,11 +85,12 @@ void image_to_arr(rgb8_image_t &img, ImageType type, char **arr, int &size){
 
   size = arr_stream.tellg();
 
+  cout << "Allocating " << to_string(size/1024) << "KB for the output image."<< endl;
+
   // allocate memory for file
   *arr = new char [size];
 
   arr_stream.seekg (0, ios::beg);
   arr_stream.read (*arr, size);
 
-  utils::print_first_bytes(*arr, 10);
 }
