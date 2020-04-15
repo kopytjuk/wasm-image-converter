@@ -1,3 +1,8 @@
+/*
+Command line tool for conversion between different formats.
+The tool determines the source and target formats via the file extension.
+*/
+
 #include <fstream>
 #include <iostream>
 #include <string> 
@@ -8,13 +13,10 @@
 using namespace std;
 
  
-//int main ( int argc, char *argv[] )
-int main ()
+int main ( int argc, char *argv[] )
 {
-  //string input_filename(argv[1]);
-  //string output_filename(argv[2]);
-
-  string input_filename = "test.jpg";
+  string input_filename(argv[1]);
+  string output_filename(argv[2]);
 
   int insize = utils::filesize(input_filename);
   cout << insize << endl;
@@ -33,8 +35,6 @@ int main ()
 
   // output
 
-  string output_filename = "test.png";
-
   char *outdata;
   int outsize;
 
@@ -50,7 +50,4 @@ int main ()
   cout << "Done!" << endl;
 
   return 0;
-
-  // convert image
-  // convert_image(input_filename, output_filename);
 }
