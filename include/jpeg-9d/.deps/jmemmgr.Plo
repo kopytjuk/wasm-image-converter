@@ -1,0 +1,73 @@
+jmemmgr.lo: jmemmgr.c jinclude.h jconfig.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stddef.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/__config \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stddef.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/lib/libc/musl/arch/emscripten/bits/alltypes.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/compat/stdlib.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdlib.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/features.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/alloca.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdio.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdio.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/wasi/api.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdint.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdint.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/lib/libc/musl/arch/emscripten/bits/stdint.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/string.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/compat/string.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/string.h \
+  /home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/strings.h \
+  jpeglib.h jmorecfg.h jpegint.h jerror.h jmemsys.h
+
+jinclude.h:
+
+jconfig.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stddef.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/__config:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stddef.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/lib/libc/musl/arch/emscripten/bits/alltypes.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/compat/stdlib.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdlib.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/features.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/alloca.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdio.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdio.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/wasi/api.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/stdint.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/stdint.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/lib/libc/musl/arch/emscripten/bits/stdint.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libcxx/string.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/compat/string.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/string.h:
+
+/home/kopytjuk/emsdk/upstream/emscripten/system/include/libc/strings.h:
+
+jpeglib.h:
+
+jmorecfg.h:
+
+jpegint.h:
+
+jerror.h:
+
+jmemsys.h:
