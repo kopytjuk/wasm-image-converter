@@ -16,6 +16,7 @@ wasm_main: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/util
 	 -o build_wasm/index.html --preload-file test.jpg
 wasm_page: src/main.cpp src/converter.cpp src/converter.h src/utils.cpp src/utils.h
 	emcc --bind --std=c++11 src/interface.cpp src/converter.cpp src/utils.cpp \
+	-s ALLOW_MEMORY_GROWTH=1 \
 	-s USE_BOOST_HEADERS=1 \
 	-s USE_ZLIB=1 \
 	-s USE_LIBPNG=1 \
